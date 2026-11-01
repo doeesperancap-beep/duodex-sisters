@@ -464,8 +464,26 @@ function trocaTipo(){
 }
 
 function atualizaNum(){
-  const chave = 'adm_' + $('#pre').value;
-  $('#ini').value = localStorage.getItem(chave) || 1;
+  const pre = $('#pre').value;
+
+  const usados = Object.keys(CARTAS)
+    .filter(code => code.startsWith(pre + '-'))
+    .map(code => Number(code.split('-')[1]))
+    .filter(Number.isFinite);
+
+  const ultimoCadastrado = usados.length
+    ? Math.max(...usados) + 1
+    : 1;
+
+  const ultimoSalvo = Number(
+    localStorage.getItem('adm_' + pre) || 1
+  );
+
+  $('#ini').value = Math.max(
+    ultimoCadastrado,
+    ultimoSalvo,
+    1
+  );
 }
 
 function poolAtaques(e, classe){
@@ -655,6 +673,15 @@ function gerar(){
     alert('Use um número inicial válido e quantidade entre 1 e 30.');
     return;
   }
+
+  for(let n = ini; n < ini + qtd; n++){
+  const code = pre + '-' + String(n).padStart(4,'0');
+
+  if(CARTAS[code]){
+    alert('O código ' + code + ' já está cadastrado. Escolha outro número.');
+    return;
+  }
+}
 
   let frentes = '';
   let versos = '';

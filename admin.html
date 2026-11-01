@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin - Imprimir cartas</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.folha{display:grid;grid-template-columns:repeat(3,63mm);gap:4mm;justify-content:center}
+.carta{width:63mm;height:88mm;border:3px solid #4b3330;background:#fff3d4;padding:3mm;display:flex;flex-direction:column;gap:2mm;break-inside:avoid}
+.carta .cab{display:flex;justify-content:space-between;font-weight:700}
+.carta .arte{flex:1;border:3px solid #4b3330;display:flex;align-items:center;justify-content:center;background:#cfe8c0;overflow:hidden}
+.carta .arte img{max-width:100%;max-height:100%}
+.carta .rod{display:flex;align-items:center;justify-content:space-between}
+.carta .rod img{width:20mm;height:20mm}
+textarea{width:100%;height:120px;font-family:monospace}
+@media print{.nao{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="box nao">
+    <h2>Admin: gerar e imprimir cartas</h2>
+    <p><small>Esta página não acessa nenhum dado dos jogadores. Só gera códigos e imprime.</small></p>
+    <div class="row">
+      <div><label>Tipo</label><select id="tipo" onchange="trocaTipo()"><option value="pokemon">Pokémon</option><option value="item">Item</option></select></div>
+      <div><label>Espécie / Item</label><select id="alvo"></select></div>
+      <div><label>Prefixo (dono sugerido)</label><select id="pre" onchange="atualizaNum()"><option>P1</option><option>P2</option><option>PX</option><option>I</option></select></div>
+      <div><label>Número inicial</label><input id="ini" type="text" style="width:90px"></div>
+      <div><label>Quantidade</label><input id="qtd" type="text" value="1" style="width:70px"></div>
+    </div>
+    <div class="row"><button class="btn verde" onclick="gerar()">Gerar</button><button class="btn" onclick="window.print()">Imprimir</button></div>
+    <label>Cole estas linhas dentro de CARTAS em js/dados.js:</label>
+    <textarea id="linhas" readonly></textarea>
+  </div>
+  <div class="folha" id="folha"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="js/dados.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+function popular() {
+  const t = $('#tipo').value;
+  $('#alvo').innerHTML = Object.entries(t === 'pokemon' ? ESPECIES : ITENS).map(([k, v]) => `<option value="${k}">${v.nome}</option>`).join('');
+}
+function trocaTipo() { popular(); $('#pre').value = $('#tipo').value === 'item' ? 'I' : 'P1'; atualizaNum(); }
+function atualizaNum() { $('#ini').value = localStorage.getItem('adm_' + $('#pre').value) || 1; }
+function gerar() {
+  const t = $('#tipo').value, k = $('#alvo').value, pre = $('#pre').value;
+  const ini = parseInt($('#ini').value), q = parseInt($('#qtd').value);
+  if (!ini || !q) return alert('Preencha número inicial e quantidade.');
+  let h = '', l = '';
+  for (let n = ini; n < ini + q; n++) {
+    const code = `${pre}-${String(n).padStart(4, '0')}`;
+    const d = t === 'pokemon' ? ESPECIES[k] : ITENS[k];
+    const qr = qrcode(0, 'M'); qr.addData(SITE_URL + '?c=' + code); qr.make();
+    const art = t === 'pokemon' ? `img/pokemon/${k}.png` : `img/itens/${k}.png`;
+    const tp = t === 'pokemon' ? TIPOS[d.tipo] : { nome: 'Item', cor: '#f5d65c' };
+    h += `<div class="carta"><div class="cab"><span>${d.nome}</span><span style="background:${tp.cor};padding:0 2mm;border:2px solid #4b3330">${tp.nome}</span></div>
+    <div class="arte"><img src="${art}" onerror="this.style.display='none'"></div>
+    <div class="rod"><b>${code}</b>${qr.createImgTag(4, 2)}</div></div>`;
+    l += `  '${code}': ${t === 'pokemon' ? `{ tipo: 'pokemon', especie: '${k}' }` : `{ tipo: 'item', item: '${k}' }`},\n`;
+  }
+  $('#folha').innerHTML = h; $('#linhas').value = l;
+  localStorage.setItem('adm_' + pre, ini + q);
+}
+popular(); atualizaNum();
+</script>
+</body>
+</html>

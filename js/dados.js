@@ -648,6 +648,10 @@ const CARTAS = {
   'P1-0002': { tipo: 'pokemon', especie: 'gotinha' },
   'P2-0001': { tipo: 'pokemon', especie: 'folhinha' },
   'P2-0002': { tipo: 'pokemon', especie: 'fagulha' },
+  'P1-0003': { tipo: 'pokemon', especie: 'rockruff' },
+  'P1-0004': { tipo: 'pokemon', especie: 'vulpix_alola' },
+  'P2-0003': { tipo: 'pokemon', especie: 'pikachu' },
+  'P2-0004': { tipo: 'pokemon', especie: 'psyduck' },
 
   'I-0001': { tipo: 'item', item: 'pedra_sol' },
   'I-0002': { tipo: 'item', item: 'superdoce' }

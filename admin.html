@@ -1,260 +1,262 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Laboratório de cartas — Duodex Sisters</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 
 <style>
-*{box-sizing:border-box}
-
-.painel{
-  max-width:980px;
-  margin:12px auto;
-  padding:12px
+* {
+  box-sizing: border-box;
 }
 
-.controles{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:10px
+.painel {
+  max-width: 980px;
+  margin: 12px auto;
+  padding: 12px;
+}
+
+.controles {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
 }
 
 .controles select,
-.controles input{
-  width:100%;
-  max-width:none;
-  padding:9px;
-  border:3px solid #4b3330;
-  background:#fff;
-  font:inherit
+.controles input {
+  width: 100%;
+  max-width: none;
+  padding: 9px;
+  border: 3px solid #4b3330;
+  background: #fff;
+  font: inherit;
 }
 
-.acoes{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin:14px 0
+.acoes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0;
 }
 
-textarea{
-  width:100%;
-  height:115px;
-  padding:8px;
-  border:3px solid #4b3330;
-  font:13px monospace
+.aviso {
+  background: #fff3d4;
+  border: 3px dashed #4b3330;
+  padding: 10px;
+  margin: 10px 0;
 }
 
-.aviso{
-  background:#fff3d4;
-  border:3px dashed #4b3330;
-  padding:10px;
-  margin:10px 0
+.folha {
+  display: grid;
+  grid-template-columns: repeat(3, 63mm);
+  gap: 2mm;
+  justify-content: center;
+  align-content: start;
 }
 
-.folha{
-  display:grid;
-  grid-template-columns:repeat(3,63mm);
-  gap:4mm;
-  justify-content:center;
-  align-content:start
+.secao {
+  margin: 18px auto;
 }
 
-.secao{margin:18px auto}
-.rotulo-folha{display:none}
-
-.carta{
-  width:63mm;
-  height:88mm;
-  position:relative;
-  overflow:hidden;
-  break-inside:avoid;
-  page-break-inside:avoid;
-  border:1.1mm solid #302c35;
-  border-radius:3mm;
-  padding:3mm;
-  display:flex;
-  flex-direction:column;
-  color:#272638
+.rotulo-folha {
+  display: none;
 }
 
-.carta:after{
-  content:"";
-  position:absolute;
-  inset:1.5mm;
-  border:.35mm solid rgba(39,38,56,.35);
-  border-radius:2mm;
-  pointer-events:none
+.carta {
+  width: 63mm;
+  height: 88mm;
+  position: relative;
+  overflow: hidden;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border: 1.1mm solid #302c35;
+  border-radius: 3mm;
+  padding: 3mm;
+  display: flex;
+  flex-direction: column;
+  color: #272638;
 }
 
-.frente{
-  background:linear-gradient(145deg,#fff9e9,#e8e0ce);
-  justify-content:space-between;
-  text-align:center
+.carta:after {
+  content: "";
+  position: absolute;
+  inset: 1.5mm;
+  border: .35mm solid rgba(39,38,56,.35);
+  border-radius: 2mm;
+  pointer-events: none;
 }
 
-.marca{
-  font-size:8pt;
-  font-weight:bold;
-  letter-spacing:1.5px;
-  border-bottom:.5mm solid #51445e;
-  padding:2mm
+.frente {
+  background: linear-gradient(145deg, #fff9e9, #e8e0ce);
+  justify-content: space-between;
+  text-align: center;
 }
 
-.nome{
-  font-size:22pt;
-  line-height:1.05;
-  font-weight:bold;
-  margin:auto 0;
-  overflow-wrap:anywhere
+.marca {
+  font-size: 8pt;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  border-bottom: .5mm solid #51445e;
+  padding: 2mm;
 }
 
-.enfeite{
-  height:22mm;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:3mm
+.nome {
+  font-size: 22pt;
+  line-height: 1.05;
+  font-weight: bold;
+  margin: auto 0;
+  overflow-wrap: anywhere;
 }
 
-.enfeite span{
-  display:block;
-  width:9mm;
-  height:9mm;
-  border:1mm solid #51445e;
-  transform:rotate(45deg);
-  opacity:.65
+.enfeite {
+  height: 22mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3mm;
 }
 
-.enfeite span:nth-child(2){
-  width:14mm;
-  height:14mm;
-  border-radius:50%;
-  transform:none;
-  background:rgba(174,150,204,.28)
+.enfeite span {
+  display: block;
+  width: 9mm;
+  height: 9mm;
+  border: 1mm solid #51445e;
+  transform: rotate(45deg);
+  opacity: .65;
 }
 
-.codigo{
-  font-size:8pt;
-  font-weight:bold;
-  letter-spacing:1.2px;
-  border-top:.5mm solid #51445e;
-  padding:2mm
+.enfeite span:nth-child(2) {
+  width: 14mm;
+  height: 14mm;
+  border-radius: 50%;
+  transform: none;
 }
 
-.verso{
-  background:linear-gradient(
+.codigo {
+  font-size: 8pt;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  border-top: .5mm solid #51445e;
+  padding: 2mm;
+}
+
+.verso {
+  background: linear-gradient(
     145deg,
     #f5edff 0%,
     #ded1f0 52%,
     #cbbce4 100%
   );
-  align-items:center;
-  text-align:center
+  align-items: center;
+  text-align: center;
 }
 
-.verso .marca{
-  width:100%;
-  margin-bottom:3mm
+.verso .marca {
+  width: 100%;
+  margin-bottom: 3mm;
 }
 
-.texto-verso{
-  font-size:7pt;
-  letter-spacing:.7px;
-  font-weight:bold;
-  margin:1mm 0
+.texto-verso {
+  font-size: 7pt;
+  letter-spacing: .7px;
+  font-weight: bold;
+  margin: 1mm 0;
 }
 
-.qr-caixa{
-  width:35mm;
-  height:35mm;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#fff;
-  padding:1.5mm;
-  border:1mm solid #302c35;
-  border-radius:1.5mm;
-  margin:4mm auto 3mm;
-  flex:none
+.qr-caixa {
+  width: 35mm;
+  height: 35mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 1.5mm;
+  border: 1mm solid #302c35;
+  border-radius: 1.5mm;
+  margin: 4mm auto 3mm;
+  flex: none;
 }
 
-.qr-caixa img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  image-rendering:pixelated
+.qr-caixa img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
 }
 
-.verso .codigo{
-  width:100%;
-  margin-top:auto
+.verso .codigo {
+  width: 100%;
+  margin-top: auto;
 }
 
-@media screen{
-  .painel{display:block}
-
-  .secao{
-    background:#fff;
-    padding:12px;
-    max-width:1000px;
-    overflow:auto
+@media screen {
+  .secao {
+    background: #fff;
+    padding: 12px;
+    max-width: 1000px;
+    overflow: auto;
   }
 
-  .rotulo-folha{
-    display:block;
-    text-align:center;
-    font-weight:bold;
-    margin-bottom:10px
+  .rotulo-folha {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
 
-  .carta{
-    box-shadow:2px 3px 0 rgba(0,0,0,.2)
+  .carta {
+    box-shadow: 2px 3px 0 rgba(0,0,0,.2);
   }
 }
 
-@page{
-  size:A4;
-  margin:8mm
+@page {
+  size: A4;
+  margin: 8mm;
 }
 
-@media print{
-  body{
-    background:#fff!important;
-    margin:0
+@media print {
+  body {
+    background: #fff !important;
+    margin: 0;
   }
 
-  #app{
-    max-width:none;
-    padding:0
+  #app {
+    max-width: none;
+    padding: 0;
   }
 
-  .nao{display:none!important}
-
-  .secao{
-    margin:0;
-    padding:0;
-    overflow:visible
+  .nao {
+    display: none !important;
   }
 
-  .rotulo-folha{display:none}
+  .secao {
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
 
-  .folha{gap:3mm}
+  .rotulo-folha {
+    display: none;
+  }
 
-  .carta{box-shadow:none}
+  .carta {
+    box-shadow: none;
+  }
 
-  .versos{
-    break-before:page;
-    page-break-before:always
+  .versos {
+    break-before: page;
+    page-break-before: always;
   }
 }
 
-@media(max-width:700px){
-  .folha{
-    grid-template-columns:repeat(2,63mm)
+@media(max-width:700px) {
+  .folha {
+    grid-template-columns: repeat(2, 63mm);
   }
 }
 </style>
@@ -272,7 +274,7 @@ textarea{
       <p>
         <small>
           Cartas universais do Duodex.
-          A ilustração do Pokémon é impressa separadamente.
+          As ilustrações dos Pokémon são impressas separadamente.
         </small>
       </p>
 
@@ -280,7 +282,7 @@ textarea{
 
         <div>
           <label for="alvo">Pokémon</label>
-          <select id="alvo"></select>
+          <select id="alvo" onchange="atualizarNumero()"></select>
         </div>
 
         <div>
@@ -312,23 +314,16 @@ textarea{
       </div>
 
       <div class="aviso">
-        <b>Como imprimir:</b>
+        <b>Impressão:</b>
         a primeira folha contém as frentes;
-        a segunda, os versos na mesma ordem.
+        a segunda contém os versos na mesma ordem.
         Teste uma carta antes de imprimir várias.
       </div>
 
-      <label for="linhas">
-        Registros para adicionar ao objeto CARTAS em js/dados.js
-      </label>
-
-      <textarea id="linhas" readonly></textarea>
-
       <p>
         <small>
-          Os códigos começam com D e não pertencem a nenhum jogador.
-          Qualquer pessoa pode registrar a carta;
-          o jogo decide a quem ela pertence.
+          Os códigos são universais e não pertencem a nenhum jogador.
+          Quem registrar a carta será o seu primeiro dono.
         </small>
       </p>
 
@@ -351,75 +346,95 @@ textarea{
 <script src="js/dados.js"></script>
 
 <script>
+
 const $ = s => document.querySelector(s);
 
-function proximoNumero(){
+// Próximo número independente para cada espécie.
+function proximoNumero(especieId) {
+
+  const prefixo = 'D-' + especieId.toUpperCase() + '-';
 
   const cadastrados = Object.keys(CARTAS)
-    .filter(c => /^D-\d{4}$/.test(c))
-    .map(c => Number(c.slice(2)));
+    .filter(code => code.startsWith(prefixo))
+    .map(code => Number(code.slice(prefixo.length)))
+    .filter(Number.isFinite);
 
   const salvo = Number(
-    localStorage.getItem('duodex_ultimo_codigo') || 0
+    localStorage.getItem('duodex_ultimo_' + especieId) || 0
   );
 
   return Math.max(0, ...cadastrados, salvo) + 1;
 }
 
-function popular(){
+// Preenche o seletor automaticamente.
+function popular() {
 
   $('#alvo').innerHTML = Object.entries(ESPECIES)
-    .map(([id,e]) =>
+    .map(([id, e]) =>
       '<option value="' + id + '">' + e.nome + '</option>'
     )
     .join('');
+
 }
 
-function qrImagem(code){
+// Atualiza a numeração ao trocar de Pokémon.
+function atualizarNumero() {
 
-  const qr = qrcode(0,'H');
+  const especieId = $('#alvo').value;
 
-  qr.addData(
-    new URL(
-      '?c=' + encodeURIComponent(code),
-      SITE_URL
-    ).href
-  );
+  if (!especieId) return;
 
+  $('#ini').value = proximoNumero(especieId);
+
+}
+
+// Cria QR code completo.
+function qrImagem(code) {
+
+  const qr = qrcode(0, 'H');
+
+  const destino = new URL(
+    '?c=' + encodeURIComponent(code),
+    SITE_URL
+  ).href;
+
+  qr.addData(destino);
   qr.make();
 
-  return qr.createImgTag(6,2);
+  return qr.createImgTag(6, 2);
+
 }
 
-function frente(code, especieId, e){
+// Frente sem ilustração: a arte será impressa separadamente.
+function frente(code, especie) {
 
-  const tipo = TIPOS[e.tipo] || {
-    cor:'#c9b8df'
-  };
+  const cor = (TIPOS[especie.tipo] || {}).cor || '#c9b8df';
 
   return '<article class="carta frente">' +
 
     '<div class="marca">DUODEX SISTERS</div>' +
 
-    '<div class="nome">' + e.nome + '</div>' +
+    '<div class="nome">' + especie.nome + '</div>' +
 
     '<div class="enfeite" aria-hidden="true">' +
 
-      '<span style="border-color:' + tipo.cor + '"></span>' +
+      '<span style="border-color:' + cor + '"></span>' +
 
-      '<span style="border-color:' + tipo.cor +
-      ';background:' + tipo.cor + '"></span>' +
+      '<span style="border-color:' + cor +
+        ';background:' + cor + '"></span>' +
 
-      '<span style="border-color:' + tipo.cor + '"></span>' +
+      '<span style="border-color:' + cor + '"></span>' +
 
     '</div>' +
 
     '<div class="codigo">' + code + '</div>' +
 
   '</article>';
+
 }
 
-function verso(code){
+// Verso lilás com QR.
+function verso(code) {
 
   return '<article class="carta verso">' +
 
@@ -436,73 +451,129 @@ function verso(code){
     '<div class="codigo">' + code + '</div>' +
 
   '</article>';
+
 }
 
-function gerar(){
+// Gera todas as cartas automaticamente.
+function gerar() {
 
   const especieId = $('#alvo').value;
   const inicio = Number($('#ini').value);
   const quantidade = Number($('#qtd').value);
 
-  if(
+  if (
     !Number.isInteger(inicio) ||
     inicio < 1 ||
     !Number.isInteger(quantidade) ||
     quantidade < 1 ||
     quantidade > 30
-  ){
+  ) {
     alert('Use um número inicial válido e uma quantidade entre 1 e 30.');
     return;
   }
 
   const especie = ESPECIES[especieId];
 
-  if(!especie){
+  if (!especie) {
     alert('Pokémon não encontrado.');
     return;
   }
 
-  const maximo = inicio + quantidade - 1;
+  const prefixo = 'D-' + especieId.toUpperCase() + '-';
   const codigos = [];
 
-  for(let n = inicio; n <= maximo; n++){
+  // Confere se não existem códigos repetidos.
+  for (let n = inicio; n < inicio + quantidade; n++) {
 
-    const code = 'D-' + String(n).padStart(4,'0');
+    const code = prefixo + String(n).padStart(4, '0');
 
-    if(CARTAS[code]){
-      alert(
-        'O código ' + code +
-        ' já existe em js/dados.js. Escolha outro número.'
-      );
+    if (CARTAS[code]) {
+      alert('O código ' + code + ' já está cadastrado.');
       return;
     }
 
     codigos.push(code);
+
   }
 
   $('#frentes').innerHTML = codigos
-    .map(code => frente(code,especieId,especie))
+    .map(code => frente(code, especie))
     .join('');
 
   $('#versos').innerHTML = codigos
     .map(code => verso(code))
     .join('');
 
-  $('#linhas').value = codigos.map(code =>
-    "  '" + code +
-    "': { tipo: 'pokemon', especie: '" +
-    especieId + "' },"
-  ).join('\n');
-
+  // Salva a sequência no navegador.
   localStorage.setItem(
-    'duodex_ultimo_codigo',
-    String(maximo)
+    'duodex_ultimo_' + especieId,
+    String(inicio + quantidade - 1)
   );
+
+  atualizarNumero();
+
+  alert(quantidade + ' carta(s) gerada(s)!');
+
 }
 
 popular();
-$('#ini').value = proximoNumero();
+atualizarNumero();
+
 </script>
 
 </body>
 </html>
+```
+
+### 2. Uma atualização necessária no `app.js`
+
+Para o novo formato funcionar, o jogo também precisa reconhecer os códigos automaticamente. A atualização estrutural é feita uma única vez.
+
+Antes de `function registrar(i)`, coloque:
+
+```js
+function identificarCarta(code) {
+  if (CARTAS[code]) return CARTAS[code];
+
+  const m = code.match(/^D-([A-Z0-9_]+)-\d{4}$/);
+
+  if (!m) return null;
+
+  const especieId = m[1].toLowerCase();
+
+  if (!ESPECIES[especieId]) return null;
+
+  return {
+    tipo: 'pokemon',
+    especie: especieId
+  };
+}
+```
+
+Dentro de `registrar(i)`, use:
+
+```js
+const m = code.match(/D-[A-Z0-9_]+-\d{4}|[A-Z0-9]+-\d{4}/);
+
+if (m) code = m[0];
+
+const c = identificarCarta(code);
+```
+
+E no scanner, substitua a expressão que procura o código por:
+
+```js
+const m = r[0].rawValue.match(
+  /D-[A-Z0-9_]+-\d{4}|[A-Z0-9]+-\d{4}/i
+);
+```
+
+Também mude o placeholder do registro para `D-ROCKRUFF-0001`.
+
+---
+
+**O resultado esperado:** você seleciona Rockruff, escolhe a quantidade e aperta Gerar. O laboratório cria `D-ROCKRUFF-0001`, `D-ROCKRUFF-0002` e assim por diante. O mesmo acontece com cada espécie.
+
+Uma observação: a sequência fica guardada no navegador que usou o laboratório. Evite gerar cartas em navegadores diferentes sem sincronizar a numeração.
+
+Ainda não consegui publicar diretamente no GitHub por falta de permissão de escrita da integração. Depois de colar e publicar os dois arquivos, já poderemos testar o registro e partir para a batalha.

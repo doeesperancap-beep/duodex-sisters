@@ -1721,7 +1721,14 @@ function rBatalha() {
 
 function rAjustes() {
   return `${topo('Ajustes')}
-
+    <div class="box">
+      <h3>Laboratório de cartas</h3>
+      <p><small>Crie cartas físicas, gere códigos e imprima frente e verso.</small></p>
+      <button class="btn verde" onclick="location.href='admin.html'">
+        Abrir laboratório
+      </button>
+    </div>
+  
     <div class="box">
       <h3>Backup</h3>
       <p><small>Os dados ficam só neste aparelho. Exporte de vez em quando!</small></p>

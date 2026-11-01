@@ -1033,15 +1033,33 @@ function rRegistrar() {
     </div>`;
 }
 
+function identificarCarta(code) {
+  // Mantém compatibilidade com cartas antigas.
+  if (CARTAS[code]) return CARTAS[code];
+
+  // Identifica a espécie pelo próprio código.
+  const m = code.match(/^D-([A-Z0-9_]+)-\d{4}$/);
+
+  if (!m) return null;
+
+  const especieId = m[1].toLowerCase();
+
+  if (!ESPECIES[especieId]) return null;
+
+  return {
+    tipo: 'pokemon',
+    especie: especieId
+  };
+}
+
 function registrar(i) {
   let code = ($('#cod').value || '').toUpperCase().trim();
 
-  const m = code.match(/[A-Z0-9]+-\d{4}/);
+  const m = code.match(/D-[A-Z0-9_]+-\d{4}|[A-Z0-9]+-\d{4}/);
 
-  if (m) code = m[0];
+if (m) code = m[0];
 
-  const c = CARTAS[code];
-
+const c = identificarCarta(code);
   if (!c) {
     return toast('Código não encontrado. Confira os caracteres.');
   }
@@ -1150,7 +1168,7 @@ async function escanear() {
       const r = await det.detect(v);
 
       if (r.length) {
-        const m = r[0].rawValue.match(/[A-Z0-9]+-\d{4}/i);
+       const m = r[0].rawValue.match(/D-[A-Z0-9_]+-\d{4}|[A-Z0-9]+-\d{4}/i);
 
         if (m) {
           pararScan();

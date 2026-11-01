@@ -1,7 +1,7 @@
 // ============ CONFIGURAÇÃO ============
 const NOME_JOGO = 'Cartinhas Pixel';
 // Endereço do seu site no GitHub Pages (termina com /). Usado no QR das cartas.
-const SITE_URL = 'https://SEUUSUARIO.github.io/SEUREPO/';
+const SITE_URL = 'https://doeesperancap-beep.github.io/duodex-sisters/';
 
 // ============ TIPOS ============
 const TIPOS = {
